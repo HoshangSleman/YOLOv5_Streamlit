@@ -211,7 +211,13 @@ def main():
         data_src = st.sidebar.radio(":دیاریکردنی سەرچاوەی داخڵکردن", ['نموونەی پێشوەختە', 'داخڵکردنی نموونەی زیاتر'])
         
         ## extra
-        # model = load_model(cfg_model_path, device_option, pre_downloaded_weights_path="models/uploaded_YOLOv5m.pt")
+        cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
+        device_option = "cuda:0"
+        try:
+            model = load_model(cfg_model_path, device_option, pre_downloaded_weights_path="models/uploaded_YOLOv5m.pt")
+        except TypeError as e:
+          print("Error:", e)
+
         
         if input_option == 'وێنە':
             image_input(data_src)
