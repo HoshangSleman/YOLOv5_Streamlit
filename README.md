@@ -1,9 +1,7 @@
-# Yolov5 Real-time Inference using Streamlit
-A web interface for real-time yolo inference using streamlit. It supports CPU and GPU inference, supports both images and videos and uploading your own custom models.
+# Yolov5 Real-time Object Detection Inference using Streamlit
+A web interface for real-time yolo inference using streamlit. It supports CPU and GPU inference, supports both images and videos...
 
 <!-- <img src="output.gif" alt="demo of the dashboard" width="800"/>  -->
-
-### [Live Demo](https://moaaztaha-yolo-interface-using-streamlit-app-ioset2.streamlit.app/)
 
 
 ## Features
@@ -24,6 +22,7 @@ After cloning the repo:
 2. Add sample images to `data/sample_images`
 3. Add sample video to `data/sample_videos` and call it `sample.mp4` or change name in the code.
 4. Add the model file to `models/` and change `cfg_model_path` to its path.
+   can use this one or my model for test
 ```bash
 git clone https://github.com/moaaztaha/Yolo-Interface-using-Streamlit
 cd Yolo-Interface-using-Streamlit
