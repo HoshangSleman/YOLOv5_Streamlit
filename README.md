@@ -1,4 +1,4 @@
-# Yolov5 Real-time Object Detection Inference using Streamlit
+# Kurdish Yolov5 Real-time Object Detection Inference using Streamlit
 A web interface for real-time yolo inference using streamlit. It supports CPU and GPU inference, supports both images and videos...
 
 <!-- <img src="output.gif" alt="demo of the dashboard" width="800"/>  -->
