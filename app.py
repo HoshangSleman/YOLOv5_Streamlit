@@ -162,6 +162,21 @@ def infer_image(img, size=None):
 
 
 #v3
+# def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
+#     """Loads the YOLOv5 model from the specified path and device."""
+#     try:
+#         # Assuming `ultralytics.hub.load` is used:
+#         model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
+#         model.to(device_option)  # Move model to specified device
+#         return model
+#     except Exception as e:
+#         print(f"Error loading model: {e}")
+#         return None  # Handle the error gracefully or raise an exception
+
+
+#v4
+import torch
+
 def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
     """Loads the YOLOv5 model from the specified path and device."""
     try:
@@ -171,7 +186,11 @@ def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
         return model
     except Exception as e:
         print(f"Error loading model: {e}")
-        return None  # Handle the error gracefully or raise an exception
+        return None 
+
+
+
+
 
 
 # @st.experimental_singleton
@@ -233,20 +252,36 @@ def main():
 
 
         #v3
-        cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
+        # cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
         
 
+        # if os.path.isfile(cfg_model_path):
+        #     device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
+        #     try:
+        #         if model is not None:
+        #             model.classes = list(model.names.keys())
+        #             model = load_model(cfg_model_path, device_option)
+        #         else:
+        #             # Handle the case where model loading failed
+        #             st.error("Error: Failed to load the model. Please check the logs for details.")
+        #     except Exception as e:
+        #         print(f"Error loading model: {e}")  # Handle the error gracefully
+        # else:
+
+        #v4
+        cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
         if os.path.isfile(cfg_model_path):
             device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
             try:
-                if model is not None:
-                    model.classes = list(model.names.keys())
-                    model = load_model(cfg_model_path, device_option)
-                else:
-                    # Handle the case where model loading failed
-                    st.error("Error: Failed to load the model. Please check the logs for details.")
+                model = load_model(cfg_model_path, device_option)
             except Exception as e:
                 print(f"Error loading model: {e}")  # Handle the error gracefully
+        else:
+            print("Model file not found!")  # Handle missing model file
+        
+        if model is not None:
+            model.classes = list(model.names.keys())
+            # Rest of your code using the model
         else:
             print("Model file not found!")  # Handle missing model file
 
