@@ -234,10 +234,17 @@ def main():
 
         #v3
         cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
+        
+
         if os.path.isfile(cfg_model_path):
             device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
             try:
-                model = load_model(cfg_model_path, device_option)
+                if model is not None:
+                    model.classes = list(model.names.keys())
+                    model = load_model(cfg_model_path, device_option)
+                else:
+                    # Handle the case where model loading failed
+                    st.error("Error: Failed to load the model. Please check the logs for details.")
             except Exception as e:
                 print(f"Error loading model: {e}")  # Handle the error gracefully
         else:
