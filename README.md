@@ -22,7 +22,7 @@ After cloning the repo:
 2. Add sample images to `data/sample_images`
 3. Add sample video to `data/sample_videos` and call it `sample.mp4` or change name in the code.
 4. Add the model file to `models/` and change `cfg_model_path` to its path.
-   can use this one or my model for test
+can use this one or my model for test
 ```bash
 git clone https://github.com/moaaztaha/Yolo-Interface-using-Streamlit
 cd Yolo-Interface-using-Streamlit
