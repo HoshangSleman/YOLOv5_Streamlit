@@ -211,7 +211,7 @@ def main():
         data_src = st.sidebar.radio(":دیاریکردنی سەرچاوەی داخڵکردن", ['نموونەی پێشوەختە', 'داخڵکردنی نموونەی زیاتر'])
         
         ## extra
-        model = load_model(cfg_model_path, device_option, pre_downloaded_weights_path="/path/to/downloaded/weights.pt")
+        model = load_model(cfg_model_path, device_option, pre_downloaded_weights_path="models/uploaded_YOLOv5m.pt")
         
         if input_option == 'وێنە':
             image_input(data_src)
