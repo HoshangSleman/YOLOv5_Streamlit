@@ -36,3 +36,5 @@ streamlit run app.py
 
 ## References
 https://discuss.streamlit.io/t/deploy-yolov5-object-detection-on-streamlit/27675
+### The following project has been used and modified to create MY webApp
+https://github.com/moaaztaha/Yolo-Interface-using-Streamlit
