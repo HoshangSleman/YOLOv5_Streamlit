@@ -167,14 +167,14 @@ def infer_image(img, size=None):
 #         return None
 
  def load_model(path, device):
-    try:
-        model_ = torch.load(path, map_location=device)
-        model_.to(device)
-        print("model to ", device)
-        return model_
-    except Exception as e:
-        print(f"Error loading model: {e}")
-        return None  # Handle the error gracefully or raise an exception
+     try:
+         model_ = torch.load(path, map_location=device)
+         model_.to(device)
+         print("model to ", device)
+         return model_
+     except Exception as e:
+         print(f"Error loading model: {e}")
+         return None  # Handle the error gracefully or raise an exception
 
 # @st.experimental_singleton
 @st.cache_resource
