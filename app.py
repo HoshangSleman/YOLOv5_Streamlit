@@ -299,7 +299,10 @@ def main():
                     print("Warning: Model doesn't have a `names` attribute. Class names might not be accessible.")
             except Exception as e:
                 print(f"Error loading model: {e}")  # Handle the error gracefully
-    
+        else:
+            print("Error:....")
+            
+            
         if model is not None:
             # Rest of your code using the model
         else:
