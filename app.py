@@ -270,20 +270,40 @@ def main():
 
         #v4
         cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
+        # if os.path.isfile(cfg_model_path):
+        #     device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
+        #     try:
+        #         model = load_model(cfg_model_path, device_option)
+        #     except Exception as e:
+        #         print(f"Error loading model: {e}")  # Handle the error gracefully
+        # else:
+        #     print("Model file not found!")  # Handle missing model file
+        
+        # if model is not None:
+        #     model.classes = list(model.names.keys())
+        #     # Rest of your code using the model
+        # else:
+        #     print("Model file not found!")  # Handle missing model file
+
+        #v5
         if os.path.isfile(cfg_model_path):
             device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
             try:
                 model = load_model(cfg_model_path, device_option)
+    
+                # Handle potential cases where `model.names` might not be available
+                if hasattr(model, 'names'):
+                    model.classes = list(model.names.keys())
+                else:
+                    # Handle the case where `model.names` is missing
+                    print("Warning: Model doesn't have a `names` attribute. Class names might not be accessible.")
             except Exception as e:
                 print(f"Error loading model: {e}")  # Handle the error gracefully
-        else:
-            print("Model file not found!")  # Handle missing model file
-        
+    
         if model is not None:
-            model.classes = list(model.names.keys())
             # Rest of your code using the model
         else:
-            print("Model file not found!")  # Handle missing model file
+            print("Model file not found!") 
 
         
         if input_option == 'وێنە':
