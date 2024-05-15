@@ -138,14 +138,14 @@ def infer_image(img, size=None):
 # @st.experimental_singleton
 @st.cache_resource
 def load_model(path, device):
-    # try:
-      model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
-      model_.to(device)
-      print("model to ", device)
+    try:
+        model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
+        model_.to(device)
+        print("model to ", device)
         return model_
-    # except Exception as e:
-    #     print(f"Error loading model: {e}")
-    #     return None  # Handle the error gracefully or raise an exception
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        return None  # Handle the error gracefully or raise an exception
 
 
 
