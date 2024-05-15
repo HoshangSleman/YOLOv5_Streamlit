@@ -228,7 +228,7 @@ def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
 #         return None  # Or a placeholder value if needed
 
 # Example usage
-model = load_model(model_url)  # model_url is the online repository URL
+# model = load_model(model_url)  # model_url is the online repository URL
 
 
 # @st.experimental_singleton
