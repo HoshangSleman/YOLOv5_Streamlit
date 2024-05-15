@@ -16,7 +16,7 @@ import settings
 
 st.set_page_config(
     page_title="سیستەمی دەستنیشانکردنی تاسە",
-    page_icon=":tada:",
+    page_icon="🛣️",
     layout="wide",
 )
 
@@ -302,11 +302,11 @@ def main():
             
             
         if model is not None:
-
-             if input_option == 'وێنە':
-                 image_input(data_src)
+            
+            if input_option == 'وێنە':
+                image_input(data_src)
             elif input_option == 'ڤیدیؤ':
-                 video_input(data_src)
+                video_input(data_src)
             # elif input_option == 'وێبکام':
             #     helper.play_webcam(confidence, model)
             # elif input_option == 'rtsp':
