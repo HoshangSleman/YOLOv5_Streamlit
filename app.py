@@ -13,7 +13,7 @@ import settings
 
 #6
 from datetime import datetime, timedelta
-
+import tenacity
 
 # st.set_page_config(
 #     page_title="سیستەمی دەستنیشانکردنی تاسە",
@@ -212,7 +212,7 @@ def infer_image(img, size=None):
 #         return None  # Or a placeholder value if needed
 
 #6
-@retry(stop=stop_after_attempt(3), wait=wait_fixed(1))  # Retry 3 times with 1 second delay
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
 def load_model(path_or_url, device):
     try:
         # Check if the path points to a local file
