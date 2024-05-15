@@ -11,7 +11,8 @@ import time
 import helper
 import settings
 
-
+#6
+from datetime import datetime, timedelta
 
 
 # st.set_page_config(
@@ -143,14 +144,14 @@ def infer_image(img, size=None):
     image = Image.fromarray(result.ims[0])
     return image
 
-# @st.experimental_singleton
-# @st.cache_resource
-# @st.cache(allow_output_mutation=True)
-# def load_model(path, device):
-#     model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
-#     model_.to(device)
-#     print("model to ", device)
-#     return model_
+#@st.experimental_singleton
+@st.cache_resource
+#@st.cache(allow_output_mutation=True)
+def load_model(path, device):
+    model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
+    model_.to(device)
+    print("model to ", device)
+    return model_
 
 ###v1
 # @st.cache(allow_output_mutation=True)
@@ -196,21 +197,36 @@ def infer_image(img, size=None):
 #         return None 
 
 # v5
-def load_model(path_or_url, device="cpu"):
-    try:
-        # Check if the path points to a local file
-        if os.path.isfile(path_or_url):
-            model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=path_or_url)
-            return model
-        else:
-            # Attempt to load from online repository if it's a URL
-            model = torch.hub.load('ultralytics/yolov5', 'custom', path=path_or_url, force_reload=True)
-            return model
-    except Exception as e:
-        print(f"Error loading model: {e}")
-        return None  # Or a placeholder value if needed
+# def load_model(path_or_url, device="cpu"):
+#     try:
+#         # Check if the path points to a local file
+#         if os.path.isfile(path_or_url):
+#             model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=path_or_url)
+#             return model
+#         else:
+#             # Attempt to load from online repository if it's a URL
+#             model = torch.hub.load('ultralytics/yolov5', 'custom', path=path_or_url, force_reload=True)
+#             return model
+#     except Exception as e:
+#         print(f"Error loading model: {e}")
+#         return None  # Or a placeholder value if needed
 
-
+#6
+# def load_model(cache_path, model_url, device="cpu", cache_expiry=timedelta(days=1)):
+#     try:
+#         # Check if cached model exists and is within expiry
+#         if os.path.isfile(cache_path) and datetime.now() - datetime.fromtimestamp(os.path.getmtime(cache_path)) < cache_expiry:
+#             model = torch.hub.load.from_pretrained(cache_path)  # Load from cache
+#             return model
+#         else:
+#             # Download model and cache it
+#             model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_url)
+#             os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+#             torch.save(model.state_dict(), cache_path)
+#             return model
+#     except Exception as e:
+#         print(f"Error loading model: {e}")
+#         return None  # Or a placeholder value if needed
 
 
 # @st.experimental_singleton
