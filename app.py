@@ -11,6 +11,7 @@ import time
 import helper
 import settings
 
+from ultralytics.yolov5 import torch.hub.load  # Assuming this is your import line
 
 
 
