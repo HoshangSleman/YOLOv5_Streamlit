@@ -15,18 +15,18 @@ import settings
 from datetime import datetime, timedelta
 import tenacity
 
-# st.set_page_config(
-#     page_title="سیستەمی دەستنیشانکردنی تاسە",
-#     page_icon="🛣️",
-#     layout="wide",
-# )
-
 st.set_page_config(
-    page_title="Your App Title",  # String
-    page_icon="path/to/your/icon.png",  # String (path to an image)
-    layout="wide",  # String ("centered" or "wide")
-    initial_sidebar_state="expanded"  # String ("collapsed" or "expanded")
+    page_title="سیستەمی دەستنیشانکردنی تاسە",
+    page_icon="🛣️",
+    layout="wide",
 )
+
+# st.set_page_config(
+#     page_title="Your App Title",  # String
+#     page_icon="path/to/your/icon.png",  # String (path to an image)
+#     layout="wide",  # String ("centered" or "wide")
+#     initial_sidebar_state="expanded"  # String ("collapsed" or "expanded")
+# )
 
 
 
