@@ -11,24 +11,13 @@ import time
 import helper
 import settings
 
-#6
-from datetime import datetime, timedelta
-import tenacity
+
 
 st.set_page_config(
     page_title="سیستەمی دەستنیشانکردنی تاسە",
     page_icon="🛣️",
     layout="wide",
 )
-
-# st.set_page_config(
-#     page_title="Your App Title",  # String
-#     page_icon="path/to/your/icon.png",  # String (path to an image)
-#     layout="wide",  # String ("centered" or "wide")
-#     initial_sidebar_state="expanded"  # String ("collapsed" or "expanded")
-# )
-
-
 
 cfg_model_path = 'models/uploaded_YOLOv5m.pt'
 model = None
@@ -144,14 +133,14 @@ def infer_image(img, size=None):
     image = Image.fromarray(result.ims[0])
     return image
 
-#@st.experimental_singleton
-# @st.cache_resource
-#@st.cache(allow_output_mutation=True)
-# def load_model(path, device):
-#     model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
-#     model_.to(device)
-#     print("model to ", device)
-#     return model_
+@st.experimental_singleton
+#@st.cache_resource
+# @st.cache(allow_output_mutation=True)
+def load_model(path, device):
+    model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
+    model_.to(device)
+    print("model to ", device)
+    return model_
 
 ###v1
 # @st.cache(allow_output_mutation=True)
@@ -185,16 +174,16 @@ def infer_image(img, size=None):
 
 
 #v4
-def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
-    """Loads the YOLOv5 model from the specified path and device."""
-    try:
-        # Assuming `ultralytics.hub.load` is used:
-        model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
-        model.to(device_option)  # Move model to specified device
-        return model
-    except Exception as e:
-        print(f"Error loading model: {e}")
-        return None 
+# def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
+#     """Loads the YOLOv5 model from the specified path and device."""
+#     try:
+#         # Assuming `ultralytics.hub.load` is used:
+#         model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
+#         model.to(device_option)  # Move model to specified device
+#         return model
+#     except Exception as e:
+#         print(f"Error loading model: {e}")
+#         return None 
 
 # v5
 # def load_model(path_or_url, device="cpu"):
