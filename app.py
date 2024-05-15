@@ -157,25 +157,24 @@ def infer_image(img, size=None):
 #         print(f"Error loading model: {e}")
 #         return None  # Handle the error gracefully or raise an exception
 
-def load_model(model_path: str, device: str):
-    """
-    Load YOLOv5 model from the specified path.
+# def load_model(model_path: str, device: str):
+#     try:
+#         model = torch.load(model_path, map_location=device)
+#         model.eval()
+#         return model
+#     except Exception as e:
+#         st.error(f"Error loading the model: {e}")
+#         return None
 
-    Args:
-        model_path (str): Path to the YOLOv5 model (.pt file).
-        device (str): 'cpu' or 'cuda' for GPU.
-
-    Returns:
-        torch.nn.Module: Loaded YOLOv5 model.
-    """
+ def load_model(path, device):
     try:
-        model = torch.load(model_path, map_location=device)
-        model.eval()
-        return model
+        model_ = torch.load(path, map_location=device)
+        model_.to(device)
+        print("model to ", device)
+        return model_
     except Exception as e:
-        st.error(f"Error loading the model: {e}")
-        return None
-
+        print(f"Error loading model: {e}")
+        return None  # Handle the error gracefully or raise an exception
 
 # @st.experimental_singleton
 @st.cache_resource
