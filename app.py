@@ -181,11 +181,11 @@ def main():
         confidence = st.sidebar.slider('ڕێژەی متمانە', min_value=0.1, max_value=1.0, value=.45)
 
         # custom classes
-        if st.sidebar.checkbox("پۆلە تایبەتەکان"):
-            model_names = list(model.names.values())
-            assigned_class = st.sidebar.multiselect("هەڵبژاردنی پؤلەکان", model_names, default=[model_names[0]])
-            classes = [model_names.index(name) for name in assigned_class]
-            model.classes = classes
+        # if st.sidebar.checkbox("پۆلە تایبەتەکان"):
+        #     model_names = list(model.names.values())
+        #     assigned_class = st.sidebar.multiselect("هەڵبژاردنی پؤلەکان", model_names, default=[model_names[0]])
+        #     classes = [model_names.index(name) for name in assigned_class]
+        #     model.classes = classes
         # else:
         #     model.classes = list(model.names.keys())
 
