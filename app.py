@@ -134,7 +134,7 @@ def infer_image(img, size=None):
     image = Image.fromarray(result.ims[0])
     return image
 
-# @st.experimental_singleton
+ # @st.experimental_singleton
 # @st.cache_resource
 # @st.cache(allow_output_mutation=True)
 # def load_model(path, device):
@@ -162,19 +162,6 @@ def infer_image(img, size=None):
 
 
 #v3
-# def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
-#     """Loads the YOLOv5 model from the specified path and device."""
-#     try:
-#         # Assuming `ultralytics.hub.load` is used:
-#         model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
-#         model.to(device_option)  # Move model to specified device
-#         return model
-#     except Exception as e:
-#         print(f"Error loading model: {e}")
-#         return None  # Handle the error gracefully or raise an exception
-
-
-# v4
 def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
     """Loads the YOLOv5 model from the specified path and device."""
     try:
@@ -184,7 +171,20 @@ def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
         return model
     except Exception as e:
         print(f"Error loading model: {e}")
-        return None 
+        return None  # Handle the error gracefully or raise an exception
+
+
+# v4 WORK
+# def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
+#     """Loads the YOLOv5 model from the specified path and device."""
+#     try:
+#         # Assuming `ultralytics.hub.load` is used:
+#         model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
+#         model.to(device_option)  # Move model to specified device
+#         return model
+#     except Exception as e:
+#         print(f"Error loading model: {e}")
+#         return None 
 
 # v5WORK
 # def load_model(path_or_url, device="cpu"):
