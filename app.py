@@ -304,9 +304,9 @@ def main():
         if model is not None:
 
              if input_option == 'وێنە':
-                image_input(data_src)
+                 image_input(data_src)
             elif input_option == 'ڤیدیؤ':
-                video_input(data_src)
+                 video_input(data_src)
             # elif input_option == 'وێبکام':
             #     helper.play_webcam(confidence, model)
             # elif input_option == 'rtsp':
