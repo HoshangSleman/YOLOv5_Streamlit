@@ -6,6 +6,7 @@ import torch
 import cv2
 import os
 import time 
+import tenacity
 
 #in my local
 import helper
