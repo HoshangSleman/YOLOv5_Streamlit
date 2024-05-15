@@ -145,12 +145,12 @@ def infer_image(img, size=None):
 
 # @st.experimental_singleton
 # @st.cache_resource
-@st.cache(allow_output_mutation=True)
-def load_model(path, device):
-    model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
-    model_.to(device)
-    print("model to ", device)
-    return model_
+# @st.cache(allow_output_mutation=True)
+# def load_model(path, device):
+#     model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
+#     model_.to(device)
+#     print("model to ", device)
+#     return model_
 
 ###v1
 # @st.cache(allow_output_mutation=True)
@@ -195,7 +195,20 @@ def load_model(path, device):
 #         print(f"Error loading model: {e}")
 #         return None 
 
-
+# v5
+def load_model(path_or_url, device="cpu"):
+    try:
+        # Check if the path points to a local file
+        if os.path.isfile(path_or_url):
+            model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=path_or_url)
+            return model
+        else:
+            # Attempt to load from online repository if it's a URL
+            model = torch.hub.load('ultralytics/yolov5', 'custom', path=path_or_url, force_reload=True)
+            return model
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        return None  # Or a placeholder value if needed
 
 
 
