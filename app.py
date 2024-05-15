@@ -127,12 +127,20 @@ def video_input(data_src):
             st.write("<div dir='rtl'><p style='font-size: 30px; background-color: FireBrick; text-align: center;'>ڤیدیۆیەك زیادبکە</p></div>", unsafe_allow_html=True)
 
 
+# def infer_image(img, size=None):
+#     model.conf = confidence
+#     result = model(img, size=size) if size else model(img)
+#     result.render()
+#     image = Image.fromarray(result.ims[0])
+#     return image
+
 def infer_image(img, size=None):
-    model.conf = confidence
-    result = model(img, size=size) if size else model(img)
-    result.render()
-    image = Image.fromarray(result.ims[0])
-    return image
+  # Assuming your model has a `predict` method for inference
+  result = model.predict(img, size=size) if size else model.predict(img)
+  result.render()  # Assuming the result object has a render method
+  image = Image.fromarray(result.ims[0])
+  return image
+
 
 
 # @st.experimental_singleton
