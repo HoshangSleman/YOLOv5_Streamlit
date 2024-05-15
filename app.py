@@ -136,23 +136,27 @@ def infer_image(img, size=None):
 
 
 # @st.experimental_singleton
-# @st.cache_resource
-# def load_model(path, device):
-#     model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
-#     model_.to(device)
-#     print("model to ", device)
-#     return model_
-
-def load_model(cfg_model_path, device_option):
-    """Loads the YOLOv5 model from the specified path and device."""
+@st.cache_resource
+def load_model(path, device):
     try:
-        # Assuming `ultralytics.hub.load` is used:
-        model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=cfg_model_path)
-        model.to(device_option)  # Move model to specified device
-        return model
+        model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
+        model_.to(device)
+        print("model to ", device)
+        return model_
     except Exception as e:
         print(f"Error loading model: {e}")
         return None  # Handle the error gracefully or raise an exception
+
+# def load_model(cfg_model_path, device_option):
+#     """Loads the YOLOv5 model from the specified path and device."""
+#     try:
+#         # Assuming `ultralytics.hub.load` is used:
+#         model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=cfg_model_path)
+#         model.to(device_option)  # Move model to specified device
+#         return model
+#     except Exception as e:
+#         print(f"Error loading model: {e}")
+#         return None  # Handle the error gracefully or raise an exception
 
 
 # @st.experimental_singleton
