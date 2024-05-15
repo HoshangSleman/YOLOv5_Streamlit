@@ -231,8 +231,8 @@ def main():
             assigned_class = st.sidebar.multiselect("هەڵبژاردنی پؤلەکان", model_names, default=[model_names[0]])
             classes = [model_names.index(name) for name in assigned_class]
             model.classes = classes
-        else:
-            model.classes = list(model.names.keys())
+        # else:
+        #     model.classes = list(model.names.keys())
 
         st.sidebar.markdown("---")
 
