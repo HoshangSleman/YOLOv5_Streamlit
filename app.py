@@ -145,7 +145,7 @@ def load_model(path, device):
         return model_
     except Exception as e:
         print(f"Error loading model: {e}")
-        return None  # Handle the error gracefully or raise an exception
+        # return None  # Handle the error gracefully or raise an exception
 
 
 # @st.experimental_singleton
