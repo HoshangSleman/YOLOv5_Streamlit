@@ -30,3 +30,4 @@ wget
 
 ultralytics
 pytube
+tenacity
