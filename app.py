@@ -286,19 +286,26 @@ def main():
         #     print("Model file not found!")  # Handle missing model file
 
         #v5
-        if os.path.isfile(cfg_model_path):
-            device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
-            try:
-                model = load_model(cfg_model_path, device_option)
+        if not os.path.isfile(cfg_model_path):
+            st.warning(".فایلی مۆدێل بەردەست نیە!!, تکایە زیادی بکە بۆ ناو فؤڵدەری مۆدێل", icon="⚠️")
+            return  # Early exit if model file is missing
     
-                # Handle potential cases where `model.names` might not be available
-                if hasattr(model, 'names'):
-                    model.classes = list(model.names.keys())
-                else:
-                    # Handle the case where `model.names` is missing
-                    print("Warning: Model doesn't have a `names` attribute. Class names might not be accessible.")
-            except Exception as e:
-                print(f"Error loading model: {e}")
+        # Device options
+        device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
+    
+        try:
+            model = load_model(cfg_model_path, device_option)
+    
+            # Handle potential cases where `model.names` might not be available
+            if hasattr(model, 'names'):
+                model.classes = list(model.names.keys())
+            else:
+                # Handle the case where `model.names` is missing
+                print("Warning: Model doesn't have a `names` attribute. Class names might not be accessible.")
+    
+        except Exception as e:
+            print(f"Error loading model: {e}")
+            model = None
             
             
         if model is not None:
