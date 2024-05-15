@@ -134,78 +134,22 @@ def infer_image(img, size=None):
     image = Image.fromarray(result.ims[0])
     return image
 
-# @st.experimental_singleton
-# @st.cache_resource
 
 
-# @st.cache(allow_output_mutation=True)
-@st.experimental_singleton
-def load_model(path, device):
-    model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
-    model_.to(device)
-    print("model to ", device)
-    return model_
+def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
+    """Loads the YOLOv5 model from the specified path and device."""
+    try:
+        # Assuming `ultralytics.hub.load` is used:
+        model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
+        model.to(device_option)  # Move model to specified device
+        return model
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        return None  # Handle the error gracefully or raise an exception
 
 
 
-#v3 WORK
-# def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
-#     """Loads the YOLOv5 model from the specified path and device."""
-#     try:
-#         # Assuming `ultralytics.hub.load` is used:
-#         model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
-#         model.to(device_option)  # Move model to specified device
-#         return model
-#     except Exception as e:
-#         print(f"Error loading model: {e}")
-#         return None  # Handle the error gracefully or raise an exception
 
-
-# v4 WORK
-# def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
-#     """Loads the YOLOv5 model from the specified path and device."""
-#     try:
-#         # Assuming `ultralytics.hub.load` is used:
-#         model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
-#         model.to(device_option)  # Move model to specified device
-#         return model
-#     except Exception as e:
-#         print(f"Error loading model: {e}")
-#         return None 
-
-# v5WORK
-# def load_model(path_or_url, device="cpu"):
-#     try:
-#         # Check if the path points to a local file
-#         if os.path.isfile(path_or_url):
-#             model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=path_or_url)
-#             return model
-#         else:
-#             # Attempt to load from online repository if it's a URL
-#             model = torch.hub.load('ultralytics/yolov5', 'custom', path=path_or_url, force_reload=True)
-#             return model
-#     except Exception as e:
-#         print(f"Error loading model: {e}")
-#         return None  # Or a placeholder value if needed
-
-#6
-# @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
-# def load_model(path_or_url, device="cpu"):
-#     try:
-#         # Check if the path points to a local file
-#         if os.path.isfile(path_or_url):
-#             model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=path_or_url)
-#             return model
-#         else:
-#             # Attempt to load from online repository if it's a URL
-#             model = torch.hub.load('ultralytics/yolov5', 'custom', path=path_or_url, force_reload=True)
-#             return model
-#     except Exception as e:
-#         print(f"Error loading model (attempt {{try_}}. Retrying...): {e}")
-#         return None  # Or a placeholder value if needed
-
-# Example usage
-# model = load_model(model_url)  # model_url is the online repository URL
 
 
 # @st.experimental_singleton
