@@ -299,28 +299,29 @@ def main():
                     print("Warning: Model doesn't have a `names` attribute. Class names might not be accessible.")
             except Exception as e:
                 print(f"Error loading model: {e}")  # Handle the error gracefully
-        else:
-            print("Error:....")
             
             
         if model is not None:
-            # Rest of your code using the model
+
+             if input_option == 'وێنە':
+                image_input(data_src)
+            elif input_option == 'ڤیدیؤ':
+                video_input(data_src)
+            # elif input_option == 'وێبکام':
+            #     helper.play_webcam(confidence, model)
+            # elif input_option == 'rtsp':
+            #      helper.play_rtsp_stream(confidence, model)
+            # elif input_option == 'youtube':
+            #     helper.play_youtube_video(confidence, model)
+            else:
+                st.error("!تکایە سەرچاوەی گونجاو دیاری بکە")
+
+            
         else:
             print("Model file not found!") 
 
         
-        if input_option == 'وێنە':
-            image_input(data_src)
-        elif input_option == 'ڤیدیؤ':
-            video_input(data_src)
-        # elif input_option == 'وێبکام':
-        #     helper.play_webcam(confidence, model)
-        # elif input_option == 'rtsp':
-        #      helper.play_rtsp_stream(confidence, model)
-        # elif input_option == 'youtube':
-        #     helper.play_youtube_video(confidence, model)
-        else:
-            st.error("!تکایە سەرچاوەی گونجاو دیاری بکە")
+       
 
 if __name__ == "__main__":
     try:
