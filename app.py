@@ -6,7 +6,6 @@ import torch
 import cv2
 import os
 import time 
-import tenacity
 
 #in my local
 import helper
@@ -14,9 +13,10 @@ import settings
 
 
 
+
 st.set_page_config(
     page_title="سیستەمی دەستنیشانکردنی تاسە",
-    page_icon="🛣️",
+    page_icon="🛣️", #:tada:
     layout="wide",
 )
 
@@ -135,21 +135,13 @@ def infer_image(img, size=None):
     return image
 
 
-
-def load_model(cfg_model_path, device_option): #, pre_downloaded_weights_path=None
-    """Loads the YOLOv5 model from the specified path and device."""
-    try:
-        # Assuming `ultralytics.hub.load` is used:
-        model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=cfg_model_path) #pre_downloaded_weights_path or 
-        model.to(device_option)  # Move model to specified device
-        return model
-    except Exception as e:
-        print(f"Error loading model: {e}")
-        return None  # Handle the error gracefully or raise an exception
-
-
-
-
+# @st.experimental_singleton
+@st.cache_resource
+def load_model(path, device):
+    model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
+    model_.to(device)
+    print("model to ", device)
+    return model_
 
 
 # @st.experimental_singleton
@@ -190,8 +182,8 @@ def main():
             assigned_class = st.sidebar.multiselect("هەڵبژاردنی پؤلەکان", model_names, default=[model_names[0]])
             classes = [model_names.index(name) for name in assigned_class]
             model.classes = classes
-        # else:
-        #     model.classes = list(model.names.keys())
+        else:
+            model.classes = list(model.names.keys())
 
         st.sidebar.markdown("---")
 
@@ -201,49 +193,18 @@ def main():
         # input src option
         data_src = st.sidebar.radio(":دیاریکردنی سەرچاوەی داخڵکردن", ['نموونەی پێشوەختە', 'داخڵکردنی نموونەی زیاتر'])
 
-
-        
-        #v4
-        cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
-        if os.path.isfile(cfg_model_path):
-            device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
-            try:
-                model = load_model(cfg_model_path, device_option)
-            except Exception as e:
-                print(f"Error loading model: {e}")  # Handle the error gracefully
+        if input_option == 'وێنە':
+            image_input(data_src)
+        elif input_option == 'ڤیدیؤ':
+            video_input(data_src)
+        # elif input_option == 'وێبکام':
+        #     helper.play_webcam(confidence, model)
+        # elif input_option == 'rtsp':
+        #      helper.play_rtsp_stream(confidence, model)
+        # elif input_option == 'youtube':
+        #     helper.play_youtube_video(confidence, model)
         else:
-            print("Model file not found!")  # Handle missing model file
-        
-        if model is not None:
-            model.classes = list(model.names.keys())
-            # Rest of your code using the model
-        else:
-            print("Model file not found!")  # Handle missing model file
-
-
-            
-            
-        if model is not None:
-            
-            if input_option == 'وێنە':
-                image_input(data_src)
-            elif input_option == 'ڤیدیؤ':
-                video_input(data_src)
-            # elif input_option == 'وێبکام':
-            #     helper.play_webcam(confidence, model)
-            # elif input_option == 'rtsp':
-            #      helper.play_rtsp_stream(confidence, model)
-            # elif input_option == 'youtube':
-            #     helper.play_youtube_video(confidence, model)
-            else:
-                st.error("!تکایە سەرچاوەی گونجاو دیاری بکە")
-
-            
-        else:
-            print("Model file not found!") 
-
-        
-       
+            st.error("!تکایە سەرچاوەی گونجاو دیاری بکە")
 
 if __name__ == "__main__":
     try:
