@@ -143,6 +143,7 @@ def infer_image(img, size=None):
 
 
 
+
 # @st.experimental_singleton
 @st.cache_resource
 def load_model(path, device):
