@@ -136,11 +136,11 @@ def infer_image(img, size=None):
 
 
 
-def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
+def load_model(cfg_model_path, device_option): #, pre_downloaded_weights_path=None
     """Loads the YOLOv5 model from the specified path and device."""
     try:
         # Assuming `ultralytics.hub.load` is used:
-        model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
+        model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=cfg_model_path) #pre_downloaded_weights_path or 
         model.to(device_option)  # Move model to specified device
         return model
     except Exception as e:
