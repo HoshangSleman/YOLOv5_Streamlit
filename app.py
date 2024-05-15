@@ -213,7 +213,7 @@ def infer_image(img, size=None):
 
 #6
 @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
-def load_model(path_or_url, device):
+def load_model(path_or_url, device="cpu"):
     try:
         # Check if the path points to a local file
         if os.path.isfile(path_or_url):
