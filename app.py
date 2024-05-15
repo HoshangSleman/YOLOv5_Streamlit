@@ -145,13 +145,13 @@ def infer_image(img, size=None):
     return image
 
 #@st.experimental_singleton
-@st.cache_resource
+# @st.cache_resource
 #@st.cache(allow_output_mutation=True)
-def load_model(path, device):
-    model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
-    model_.to(device)
-    print("model to ", device)
-    return model_
+# def load_model(path, device):
+#     model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
+#     model_.to(device)
+#     print("model to ", device)
+#     return model_
 
 ###v1
 # @st.cache(allow_output_mutation=True)
@@ -212,21 +212,23 @@ def load_model(path, device):
 #         return None  # Or a placeholder value if needed
 
 #6
-# def load_model(cache_path, model_url, device="cpu", cache_expiry=timedelta(days=1)):
-#     try:
-#         # Check if cached model exists and is within expiry
-#         if os.path.isfile(cache_path) and datetime.now() - datetime.fromtimestamp(os.path.getmtime(cache_path)) < cache_expiry:
-#             model = torch.hub.load.from_pretrained(cache_path)  # Load from cache
-#             return model
-#         else:
-#             # Download model and cache it
-#             model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_url)
-#             os.makedirs(os.path.dirname(cache_path), exist_ok=True)
-#             torch.save(model.state_dict(), cache_path)
-#             return model
-#     except Exception as e:
-#         print(f"Error loading model: {e}")
-#         return None  # Or a placeholder value if needed
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(1))  # Retry 3 times with 1 second delay
+def load_model(path_or_url, device):
+    try:
+        # Check if the path points to a local file
+        if os.path.isfile(path_or_url):
+            model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=path_or_url)
+            return model
+        else:
+            # Attempt to load from online repository if it's a URL
+            model = torch.hub.load('ultralytics/yolov5', 'custom', path=path_or_url, force_reload=True)
+            return model
+    except Exception as e:
+        print(f"Error loading model (attempt {{try_}}. Retrying...): {e}")
+        return None  # Or a placeholder value if needed
+
+# Example usage
+model = load_model(model_url)  # model_url is the online repository URL
 
 
 # @st.experimental_singleton
@@ -304,6 +306,8 @@ def main():
         #         print(f"Error loading model: {e}")  # Handle the error gracefully
         # else:
 
+
+        
         #v4
         cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
         # if os.path.isfile(cfg_model_path):
@@ -321,27 +325,29 @@ def main():
         # else:
         #     print("Model file not found!")  # Handle missing model file
 
+
+        
         #v5
-        if not os.path.isfile(cfg_model_path):
-            st.warning(".فایلی مۆدێل بەردەست نیە!!, تکایە زیادی بکە بۆ ناو فؤڵدەری مۆدێل", icon="⚠️")
-            return  # Early exit if model file is missing
+        # if not os.path.isfile(cfg_model_path):
+        #     st.warning(".فایلی مۆدێل بەردەست نیە!!, تکایە زیادی بکە بۆ ناو فؤڵدەری مۆدێل", icon="⚠️")
+        #     return  # Early exit if model file is missing
     
-        # Device options
-        device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
+        # # Device options
+        # device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
     
-        try:
-            model = load_model(cfg_model_path, device_option)
+        # try:
+        #     model = load_model(cfg_model_path, device_option)
     
-            # Handle potential cases where `model.names` might not be available
-            if hasattr(model, 'names'):
-                model.classes = list(model.names.keys())
-            else:
-                # Handle the case where `model.names` is missing
-                print("Warning: Model doesn't have a `names` attribute. Class names might not be accessible.")
+        #     # Handle potential cases where `model.names` might not be available
+        #     if hasattr(model, 'names'):
+        #         model.classes = list(model.names.keys())
+        #     else:
+        #         # Handle the case where `model.names` is missing
+        #         print("Warning: Model doesn't have a `names` attribute. Class names might not be accessible.")
     
-        except Exception as e:
-            print(f"Error loading model: {e}")
-            model = None
+        # except Exception as e:
+        #     print(f"Error loading model: {e}")
+        #     model = None
             
             
         if model is not None:
