@@ -134,7 +134,7 @@ def infer_image(img, size=None):
     image = Image.fromarray(result.ims[0])
     return image
 
-#@st.experimental_singleton
+# @st.experimental_singleton
 # @st.cache_resource
 # @st.cache(allow_output_mutation=True)
 # def load_model(path, device):
@@ -143,22 +143,14 @@ def infer_image(img, size=None):
 #     print("model to ", device)
 #     return model_
 
-###v1
-# @st.cache(allow_output_mutation=True)
-# def load_model(cfg_model_path, device_option):
-#     # Your model loading code here, including the torch.hub.load call
-#     model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
-#     # ...
-#     return model_
-
-
-# v2
+# v1
 @st.cache(allow_output_mutation=True)
-def load_model(cfg_model_path, device_option, pre_downloaded_weights_path):
-    model_ = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path)
-    model_.to(device)
-    print("model to ", device)
+def load_model(cfg_model_path, device_option):
+    # Your model loading code here, including the torch.hub.load call
+    model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
+    # ...
     return model_
+
 
 
 #v3 WORK
