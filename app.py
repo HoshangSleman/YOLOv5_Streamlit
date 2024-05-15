@@ -200,75 +200,27 @@ def main():
 
         # input src option
         data_src = st.sidebar.radio(":دیاریکردنی سەرچاوەی داخڵکردن", ['نموونەی پێشوەختە', 'داخڵکردنی نموونەی زیاتر'])
-        
-        ## extra
-        # cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
-        # device_option = "cuda:0"
-        # try:
-        #     model = load_model(cfg_model_path, device_option, pre_downloaded_weights_path="models/uploaded_YOLOv5m.pt")
-        # except TypeError as e:
-        #   print("Error:", e)
-
-
-        #v3
-        # cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
-        
-
-        # if os.path.isfile(cfg_model_path):
-        #     device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
-        #     try:
-        #         if model is not None:
-        #             model.classes = list(model.names.keys())
-        #             model = load_model(cfg_model_path, device_option)
-        #         else:
-        #             # Handle the case where model loading failed
-        #             st.error("Error: Failed to load the model. Please check the logs for details.")
-        #     except Exception as e:
-        #         print(f"Error loading model: {e}")  # Handle the error gracefully
-        # else:
 
 
         
         #v4
         cfg_model_path = "models/uploaded_YOLOv5m.pt"  # Replace with your actual path
-        # if os.path.isfile(cfg_model_path):
-        #     device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
-        #     try:
-        #         model = load_model(cfg_model_path, device_option)
-        #     except Exception as e:
-        #         print(f"Error loading model: {e}")  # Handle the error gracefully
-        # else:
-        #     print("Model file not found!")  # Handle missing model file
+        if os.path.isfile(cfg_model_path):
+            device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
+            try:
+                model = load_model(cfg_model_path, device_option)
+            except Exception as e:
+                print(f"Error loading model: {e}")  # Handle the error gracefully
+        else:
+            print("Model file not found!")  # Handle missing model file
         
-        # if model is not None:
-        #     model.classes = list(model.names.keys())
-        #     # Rest of your code using the model
-        # else:
-        #     print("Model file not found!")  # Handle missing model file
+        if model is not None:
+            model.classes = list(model.names.keys())
+            # Rest of your code using the model
+        else:
+            print("Model file not found!")  # Handle missing model file
 
 
-        
-        #v5
-        # if not os.path.isfile(cfg_model_path):
-        #     st.warning(".فایلی مۆدێل بەردەست نیە!!, تکایە زیادی بکە بۆ ناو فؤڵدەری مۆدێل", icon="⚠️")
-        #     return  # Early exit if model file is missing
-    
-        # # Device options
-        # device_option = "cuda:0" if torch.cuda.is_available() else "cpu"
-    
-        # try:
-        #     model = load_model(cfg_model_path, device_option)
-    
-        #     # Handle potential cases where `model.names` might not be available
-        #     if hasattr(model, 'names'):
-        #         model.classes = list(model.names.keys())
-        #     else:
-        #         # Handle the case where `model.names` is missing
-        #         print("Warning: Model doesn't have a `names` attribute. Class names might not be accessible.")
-    
-        # except Exception as e:
-        #     print(f"Error loading model: {e}")
-        #     model = None
             
             
         if model is not None:
