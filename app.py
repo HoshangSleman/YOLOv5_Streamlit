@@ -185,16 +185,16 @@ def infer_image(img, size=None):
 
 
 #v4
-# def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
-#     """Loads the YOLOv5 model from the specified path and device."""
-#     try:
-#         # Assuming `ultralytics.hub.load` is used:
-#         model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
-#         model.to(device_option)  # Move model to specified device
-#         return model
-#     except Exception as e:
-#         print(f"Error loading model: {e}")
-#         return None 
+def load_model(cfg_model_path, device_option, pre_downloaded_weights_path=None):
+    """Loads the YOLOv5 model from the specified path and device."""
+    try:
+        # Assuming `ultralytics.hub.load` is used:
+        model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=pre_downloaded_weights_path or cfg_model_path)
+        model.to(device_option)  # Move model to specified device
+        return model
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        return None 
 
 # v5
 # def load_model(path_or_url, device="cpu"):
@@ -212,20 +212,20 @@ def infer_image(img, size=None):
 #         return None  # Or a placeholder value if needed
 
 #6
-@retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
-def load_model(path_or_url, device="cpu"):
-    try:
-        # Check if the path points to a local file
-        if os.path.isfile(path_or_url):
-            model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=path_or_url)
-            return model
-        else:
-            # Attempt to load from online repository if it's a URL
-            model = torch.hub.load('ultralytics/yolov5', 'custom', path=path_or_url, force_reload=True)
-            return model
-    except Exception as e:
-        print(f"Error loading model (attempt {{try_}}. Retrying...): {e}")
-        return None  # Or a placeholder value if needed
+# @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
+# def load_model(path_or_url, device="cpu"):
+#     try:
+#         # Check if the path points to a local file
+#         if os.path.isfile(path_or_url):
+#             model = torch.hub.load('ultralytics/yolov5', 'custom', source='local', path=path_or_url)
+#             return model
+#         else:
+#             # Attempt to load from online repository if it's a URL
+#             model = torch.hub.load('ultralytics/yolov5', 'custom', path=path_or_url, force_reload=True)
+#             return model
+#     except Exception as e:
+#         print(f"Error loading model (attempt {{try_}}. Retrying...): {e}")
+#         return None  # Or a placeholder value if needed
 
 # Example usage
 model = load_model(model_url)  # model_url is the online repository URL
