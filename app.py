@@ -127,44 +127,44 @@ def video_input(data_src):
             st.write("<div dir='rtl'><p style='font-size: 30px; background-color: FireBrick; text-align: center;'>ڤیدیۆیەك زیادبکە</p></div>", unsafe_allow_html=True)
 
 
-# def infer_image(img, size=None):
-#     model.conf = confidence
-#     result = model(img, size=size) if size else model(img)
-#     result.render()
-#     image = Image.fromarray(result.ims[0])
-#     return image
-
 def infer_image(img, size=None):
-  # Assuming your model has a `predict` method for inference
-  result = model.predict(img, size=size) if size else model.predict(img)
-  result.render()  # Assuming the result object has a render method
-  image = Image.fromarray(result.ims[0])
-  return image
+    model.conf = confidence
+    result = model(img, size=size) if size else model(img)
+    result.render()
+    image = Image.fromarray(result.ims[0])
+    return image
+
+# def infer_image(img, size=None):
+#   # Assuming your model has a `predict` method for inference
+#   result = model.predict(img, size=size) if size else model.predict(img)
+#   result.render()  # Assuming the result object has a render method
+#   image = Image.fromarray(result.ims[0])
+#   return image
 
 
 
 
 
 # @st.experimental_singleton
-# @st.cache_resource
-# def load_model(path, device):
-#     try:
-#         model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
-#         model_.to(device)
-#         print("model to ", device)
-#         return model_
-#     except Exception as e:
-#         print(f"Error loading model: {e}")
-#         return None  # Handle the error gracefully or raise an exception
-
-def load_model(model_path: str, device: str):
+@st.cache_resource
+def load_model(path, device):
     try:
-        model = torch.load(model_path, map_location=device)
-        model.eval()
-        return model
+        model_ = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=True)
+        model_.to(device)
+        print("model to ", device)
+        return model_
     except Exception as e:
-        st.error(f"Error loading the model: {e}")
-        return None
+        print(f"Error loading model: {e}")
+        return None  # Handle the error gracefully or raise an exception
+
+# def load_model(model_path: str, device: str):
+#     try:
+#         model = torch.load(model_path, map_location=device)
+#         model.eval()
+#         return model
+#     except Exception as e:
+#         st.error(f"Error loading the model: {e}")
+#         return None
 
 
 
